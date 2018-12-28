@@ -5,8 +5,8 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -15,7 +15,7 @@ public class ContactCreationTests {
   private WebDriver wd;
 
 
-  @BeforeClass(alwaysRun = true)
+  @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "/home/aivanou/chromedriver");
     wd = new ChromeDriver();
@@ -75,7 +75,7 @@ public class ContactCreationTests {
     wd.findElement(By.linkText("add new")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
 
   }
