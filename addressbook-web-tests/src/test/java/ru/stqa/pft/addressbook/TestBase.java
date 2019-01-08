@@ -30,9 +30,6 @@ public class TestBase {
     wd.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
-  protected void logout() {
-    wd.findElement(By.linkText("Logout")).click();
-  }
 
   protected void returnToGroupPage() {
     wd.findElement(By.linkText("group page")).click();
@@ -62,9 +59,43 @@ public class TestBase {
     wd.findElement(By.linkText("groups")).click();
   }
 
+  protected void logout() {
+    wd.findElement(By.linkText("Logout")).click();
+  }
+
+  protected void returnToHomePage() {
+    wd.findElement(By.linkText("home")).click();
+  }
+
+  protected void submitNewContact() {
+    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+  }
+
+  protected void fillNewContact(ContactData contactData) {
+    wd.findElement(By.name("firstname")).clear();
+    wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
+    wd.findElement(By.name("lastname")).clear();
+    wd.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
+    wd.findElement(By.name("nickname")).clear();
+    wd.findElement(By.name("nickname")).sendKeys(contactData.getNickname());
+    wd.findElement(By.name("title")).clear();
+    wd.findElement(By.name("title")).sendKeys(contactData.getTitle());
+    wd.findElement(By.name("company")).clear();
+    wd.findElement(By.name("company")).sendKeys(contactData.getCompany());
+    wd.findElement(By.name("address")).clear();
+    wd.findElement(By.name("address")).sendKeys(contactData.getAddress());
+    wd.findElement(By.name("mobile")).clear();
+    wd.findElement(By.name("mobile")).sendKeys(contactData.getMobile());
+  }
+
+  protected void goToContactPage() {
+    wd.findElement(By.linkText("add new")).click();
+  }
+
+
   @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
-    wd.quit();
+
   }
 
   private boolean isElementPresent(By by) {
@@ -91,5 +122,18 @@ public class TestBase {
 
   protected void selectGroup() {
     wd.findElement(By.name("selected[]")).click();
+  }
+
+  protected void deleteSelectedContacts() {
+    wd.findElement(By.xpath("//input[@value='Delete']")).click();
+    wd.switchTo().alert().accept();
+  }
+
+  protected void selectContact() {
+    wd.findElement(By.xpath("//td/input")).click();
+  }
+
+  protected void gotoHomePage() {
+    wd.findElement(By.linkText("home")).click();
   }
 }
