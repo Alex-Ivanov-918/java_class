@@ -42,7 +42,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void initContactModification() {
-    click(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a/img"));
+    click(By.xpath("//img[@alt='Edit']"));
   }
 
   public void submitContactModification() {
