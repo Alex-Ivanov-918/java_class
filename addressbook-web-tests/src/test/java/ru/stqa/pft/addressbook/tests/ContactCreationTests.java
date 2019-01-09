@@ -13,7 +13,7 @@ public class ContactCreationTests extends TestBase {
     app.fillNewContact(new ContactData("Piter", "Parker", "Spider-Man", "Friendly Neighbor", "Avengers", "20 Ingram St.", "1234567890"));
     app.submitNewContact();
     app.getNavigationHelper().returnToHomePage();
-    app.logout();
+    app.getSessionHelper().logout();
   }
 
 
