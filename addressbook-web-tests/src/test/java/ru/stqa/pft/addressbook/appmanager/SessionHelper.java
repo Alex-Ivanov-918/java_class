@@ -7,7 +7,6 @@ public class SessionHelper {
   private WebDriver wd;
 
   public SessionHelper(WebDriver wd) {
-
     this.wd = wd;
   }
 
@@ -20,7 +19,6 @@ public class SessionHelper {
   }
 
   public void logout() {
-
     wd.findElement(By.linkText("Logout")).click();
   }
 }
