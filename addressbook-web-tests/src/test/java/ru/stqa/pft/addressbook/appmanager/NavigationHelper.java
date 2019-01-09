@@ -12,19 +12,7 @@ public class NavigationHelper {
 
   public void returnToGroupPage() { wd.findElement(By.linkText("group page")).click(); }
 
-  public void gotoGroupPage() {
-    wd.findElement(By.linkText("groups")).click();
-  }
+  public void returnToHomePage() { wd.findElement(By.linkText("home")).click(); }
 
-  public void returnToHomePage() {
-    wd.findElement(By.linkText("home")).click();
-  }
 
-  public void goToContactPage() {
-    wd.findElement(By.linkText("add new")).click();
-  }
-
-  public void gotoHomePage() {
-    wd.findElement(By.linkText("home")).click();
-  }
 }

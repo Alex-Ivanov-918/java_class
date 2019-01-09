@@ -11,6 +11,12 @@ public class ContactHelper {
     this.wd = wd;
   }
 
+  public void gotoHomePage() {
+    wd.findElement(By.linkText("home")).click();
+  }
+
+  public void gotoContactPage() { wd.findElement(By.linkText("add new")).click();}
+
   public void submitNewContact() {
     wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
@@ -32,12 +38,13 @@ public class ContactHelper {
     wd.findElement(By.name("mobile")).sendKeys(contactData.getMobile());
   }
 
+  public void selectContact() {
+    wd.findElement(By.xpath("//td/input")).click();
+  }
+
   public void deleteSelectedContacts() {
     wd.findElement(By.xpath("//input[@value='Delete']")).click();
     wd.switchTo().alert().accept();
   }
 
-  public void selectContact() {
-    wd.findElement(By.xpath("//td/input")).click();
-  }
 }
