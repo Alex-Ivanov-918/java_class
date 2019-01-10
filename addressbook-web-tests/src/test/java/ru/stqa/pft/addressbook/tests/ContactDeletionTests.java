@@ -13,6 +13,8 @@ public class ContactDeletionTests extends TestBase {
     app.getContactHelper().gotoHomePage();
     app.getContactHelper().selectContact();
     app.getContactHelper().deleteSelectedContacts();
+    app.getContactHelper().deleteConfirmation();
+    app.getContactHelper().gotoHomePage();
     app.getSessionHelper().logout();
   }
 

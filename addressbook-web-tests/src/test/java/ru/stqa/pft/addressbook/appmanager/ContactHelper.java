@@ -48,4 +48,8 @@ public class ContactHelper extends HelperBase {
   public void submitContactModification() {
     click(By.name("update"));
   }
+
+  public void deleteConfirmation() {
+    wd.findElement(By.className("msgbox"));
+  }
 }
