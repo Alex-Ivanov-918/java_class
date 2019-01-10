@@ -50,6 +50,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void deleteConfirmation() {
-    wd.findElement(By.className("msgbox"));
+    notification(By.className("msgbox"));
   }
+
 }
