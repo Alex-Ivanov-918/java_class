@@ -34,7 +34,9 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobile());
 
     if (creation) {
-      new Select (wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (null != contactData.getGroup()) {
+        new Select (wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -61,4 +63,14 @@ public class ContactHelper extends HelperBase {
     notification(By.className("msgbox"));
   }
 
+  public boolean isThereAContact() {
+    return isElementPresent(By.xpath("//td/input"));
+  }
+
+  public void createContact(ContactData contact) {
+    gotoContactPage();
+    fillContactInfo(contact, true);
+    submitNewContact();
+    gotoHomePage();
+  }
 }
