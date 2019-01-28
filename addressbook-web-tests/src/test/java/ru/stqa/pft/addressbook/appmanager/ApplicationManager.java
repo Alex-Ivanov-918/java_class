@@ -30,7 +30,7 @@ public class ApplicationManager {
       wd = new InternetExplorerDriver();
     }
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wd.get("http://study.loc/group.php");
+    wd.get("http://study.loc");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
