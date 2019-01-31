@@ -2,9 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -42,8 +46,8 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  public void selectContact() {
-    click(By.xpath("//td/input"));
+  public void selectContact(int index) {
+      wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContacts() {
@@ -51,15 +55,11 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
-  public void initContactModification() {
-    click(By.xpath("//img[@alt='Edit']"));
-  }
-
   public void submitContactModification() {
     click(By.name("update"));
   }
 
-  public void deleteConfirmation() {
+  public void actionConfirmation() {
     notification(By.className("msgbox"));
   }
 
@@ -76,5 +76,21 @@ public class ContactHelper extends HelperBase {
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+    public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      String name = element.findElement(By.xpath("//td[3]")).getText();
+//      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      ContactData contact = new ContactData(name, null, null, null,null,null,null,null);
+      contacts.add(contact);
+    }
+    return contacts;
+  }
+
+  public void selectContactToEdit(int index) {
+    wd.findElements(By.xpath("//*[@src='icons/pencil.png']")).get(index).click();
   }
 }
