@@ -74,23 +74,26 @@ public class ContactHelper extends HelperBase {
     gotoHomePage();
   }
 
-  public int getContactCount() {
-    return wd.findElements(By.name("selected[]")).size();
-  }
 
     public List<ContactData> getContactList() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    for (WebElement element : elements) {
-      String firstName = element.findElement(By.xpath("//td[3]")).getText();
-//      String id = element.findElement(By.tagName("input")).getAttribute("value");
-      ContactData contact = new ContactData(firstName, null, null, null,null,null,null,null);
-      contacts.add(contact);
+    List<WebElement> rows = wd.findElements(By.tagName("tr"));
+    for (WebElement row : rows) {
+      List<WebElement> cell = row.findElements(By.tagName("td"));
+      int count = cell.size();
+      if (count>0) {
+        String firstName = cell.get(1).getText();
+        String lastName = cell.get(2).getText();
+        String nickname = cell.get(3).getText();
+        System.out.println(firstName + ", " + lastName + ", " + nickname);
+        ContactData contact = new ContactData(firstName, lastName, nickname, null, null, null, null, null);
+        contacts.add(contact);
+      }
     }
     return contacts;
   }
 
-  public void selectContactToEdit(int index) {
+  public void selectEditContact(int index) {
     wd.findElements(By.xpath("//*[@src='icons/pencil.png']")).get(index).click();
   }
 }
