@@ -35,4 +35,5 @@ public class GroupModificationTests extends TestBase {
 
     app.getSessionHelper().logout();
   }
+
 }
