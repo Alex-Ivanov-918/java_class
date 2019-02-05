@@ -55,6 +55,14 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
+  public void returnToHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
+
+
   public void submitContactModification() {
     click(By.name("update"));
   }
@@ -74,8 +82,16 @@ public class ContactHelper extends HelperBase {
     gotoHomePage();
   }
 
+  public void modifyContact(int index, ContactData contact) {
+    selectEditContact(index);
+    fillContactInfo(contact,false);
+    submitContactModification();
+    actionConfirmation();
+    returnToHomePage();
+  }
 
-    public List<ContactData> getContactList() {
+
+  public List<ContactData> getContactList() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     WebElement table = wd.findElement(By.xpath("//*[@id='maintable']/tbody"));
     List<WebElement> rows = wd.findElements(By.tagName("tr"));
