@@ -96,22 +96,16 @@ public class ContactHelper extends HelperBase {
 
   public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    WebElement table = wd.findElement(By.xpath("//*[@id='maintable']/tbody"));
-    List<WebElement> rows = wd.findElements(By.tagName("tr"));
+    List<WebElement> rows = wd.findElements(By.name("entry"));
 
     for (WebElement row : rows) {
       List<WebElement> cell = row.findElements(By.tagName("td"));
-      List<WebElement> input = row.findElements(By.xpath("//td/input"));
-      int count = cell.size();
-      if (count>0) {
         String lastName = cell.get(1).getText();
         String firstName = cell.get(2).getText();
-        System.out.println(firstName + ", " + lastName + ", ");
-        int id = Integer.parseInt(input.get(0).getAttribute("value"));
-        ContactData contact = new ContactData(id, firstName, lastName, null, null, null, null, null, null);
+        int id = Integer.parseInt(cell.get(0).findElement(By.tagName("input")).getAttribute("value"));
+        ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName);
         contacts.add(contact);
       }
-    }
     return contacts;
   }
 
