@@ -6,11 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -75,8 +74,8 @@ public class ContactHelper extends HelperBase {
     notification(By.className("msgbox"));
   }
 
-  public boolean isThereAContact() {
-    return isElementPresent(By.xpath("//td/input"));
+  public void selectEditContactById(int id) {
+    wd.findElement(By.xpath("//*[@href='edit.php?id="+id+"']")).click();
   }
 
   public void create(ContactData contact) {
@@ -90,13 +89,6 @@ public class ContactHelper extends HelperBase {
     selectEditContactById(contact.getId());
     fillContactInfo(contact,false);
     submitContactModification();
-    actionConfirmation();
-    returnToHomePage();
-  }
-
-  public void delete(int index) {
-    selectContact(index);
-    deleteSelectedContacts();
     actionConfirmation();
     returnToHomePage();
   }
@@ -123,8 +115,8 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public Set<ContactData> all() {
-    Set<ContactData> contacts = new HashSet<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> rows = wd.findElements(By.name("entry"));
 
     for (WebElement row : rows) {
@@ -137,9 +129,4 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
-
-  public void selectEditContactById(int id) {
-    wd.findElement(By.xpath("//*[@href='edit.php?id="+id+"']")).click();
-  }
-
 }
