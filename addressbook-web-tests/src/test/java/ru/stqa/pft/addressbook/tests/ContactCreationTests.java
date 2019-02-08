@@ -14,13 +14,13 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation() throws Exception {
     app.goTo().homePage();
     Contacts before = app.contact().all();
-    ContactData contact = new ContactData()
-            .withLastName("Parker").withFirstName("Peter").withNickname("Spider-man").withTitle("Friendly Neighbor")
-            .withCompany("Avengers").withAddress("20 Ingram St.").withHome("21994").withMobile("0987654321")
-            .withWork("323232").withEmail("spiderman@gmail.com");
+    ContactData contact = new ContactData().withFirstName("Peter").withLastName("Parker").withNickname("Spider-Man")
+            .withTitle("Friendly neighbour").withCompany("Avengers").withAddress("775 Westminster Avenue APT D5")
+            .withMobile("1212121212");
     app.contact().create(contact);
-    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
+
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
 

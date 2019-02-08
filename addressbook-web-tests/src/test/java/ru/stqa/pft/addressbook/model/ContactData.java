@@ -10,11 +10,14 @@ public class ContactData {
   private String title;
   private String company;
   private String address;
+  private String allPhones;
   private String home;
   private String mobile;
   private String work;
   private String group;
   private String email;
+  private String email2;
+  private String email3;
 
   public ContactData withId(int id) {
     this.id = id;
@@ -51,9 +54,15 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
   public ContactData withHome(String home) {
     this.home = home;
     return this;
+
   }
   public ContactData withMobile(String mobile) {
     this.mobile = mobile;
@@ -65,8 +74,18 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withEmail(String email) {
-    this.email = email;
+  public ContactData withEmail(String email1) {
+    this.email = email1;
+    return this;
+  }
+
+  public ContactData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public ContactData withEmail3(String email3) {
+    this.email3 = email3;
     return this;
   }
   public ContactData withGroup(String group) {
@@ -83,43 +102,49 @@ public class ContactData {
       return firstName;
     }
 
-    public String getLastName () {
+  public String getLastName () {
       return lastName;
     }
 
-    public String getNickname () {
+  public String getNickname () {
       return nickname;
     }
 
-    public String getTitle () {
+  public String getTitle () {
       return title;
     }
 
-    public String getCompany () {
+  public String getCompany () {
       return company;
     }
 
-    public String getAddress () {
+  public String getAddress () {
       return address;
     }
 
-    public String getHome() {
+  public String getAllPhones() { return allPhones; }
+
+  public String getHome() {
       return home;
     }
 
-    public String getMobile () {
+  public String getMobile () {
       return mobile;
     }
 
-    public String getWork () {
+  public String getWork () {
       return work;
     }
 
-    public String getEmail () {
+  public String getEmail () {
       return email;
     }
 
-    public String getGroup () {
+  public String getEmail2 () { return email2; }
+
+  public String getEmail3 () { return email3; }
+
+  public String getGroup () {
       return group;
     }
 
