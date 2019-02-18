@@ -67,6 +67,7 @@ public class ContactData {
   @Type(type = "text")
   private String photo;
 
+
   public ContactData withId(int id) {
     this.id = id;
     return this;
