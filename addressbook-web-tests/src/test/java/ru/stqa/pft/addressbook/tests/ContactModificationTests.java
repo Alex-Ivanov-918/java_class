@@ -17,7 +17,8 @@ public class ContactModificationTests extends TestBase {
 
     if (app.db().contacts().size() == 0) {
     app.goTo().homePage();
-    app.contact().create(new ContactData().withFirstName("Peter").withLastName("Porker").withNickname("Spider-Man"));
+    app.contact().create(new ContactData().withFirstName("Peter").withLastName("Porker").withNickname("Spider-Man")
+            .withPhoto(new File("src/test/resources/smile.png")));
     }
   }
 
@@ -27,7 +28,8 @@ public class ContactModificationTests extends TestBase {
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.getId())
             .withFirstName("Miles").withLastName("Morales").withNickname("Spider-Man").withTitle("Friendly Neighbor")
-            .withCompany("Avengers").withAddress("20 Ingram St.").withMobile("0987654321").withPhoto(new File("src/test/resources/smile.png"));
+            .withCompany("Avengers").withAddress("20 Ingram St.").withMobile("0987654321")
+            .withPhoto(new File("src/test/resources/smile.png"));
     app.goTo().homePage();
     app.contact().modify(contact);
     Contacts after = app.db().contacts();
