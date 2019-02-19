@@ -33,7 +33,4 @@ public class GroupModificationTests extends TestBase {
     verifyGroupListInUI();
   }
 
-  public void verifyGroupListInUI() {
-  }
-
 }
