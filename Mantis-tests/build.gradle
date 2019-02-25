@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+}
+
+group 'sandbox'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.testng:testng:6.8.21'
+    compile "org.seleniumhq.selenium:selenium-java:3.14.0"
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+  
+}
+
+test {
+    useTestNG{
+        suites 'src/test/resources/testng.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+
+    }
+    if (project.hasProperty('target')) {
+    systemProperty 'target', "${target}"
+    }
+
+    if (project.hasProperty('verifyUI')) {
+    systemProperty 'verifyUI', "${verifyUI}"
+    }
+
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
