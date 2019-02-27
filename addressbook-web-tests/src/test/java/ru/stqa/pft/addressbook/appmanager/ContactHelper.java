@@ -49,8 +49,10 @@ public class ContactHelper extends HelperBase {
 
 
     if (creation) {
-      if (null != contactData.getGroup()) {
-        new Select (wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group")))
+                .selectByVisibleText(contactData.getGroups().iterator().next().getName());
       }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -83,6 +85,38 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath("//*[@href='edit.php?id="+id+"']")).click();
   }
 
+  public boolean isThereTheContact (int id) {
+    return isElementPresent(By.xpath("//input[@id='" + id + "']"));
+  }
+  public boolean isThereAContact () {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+  private void contactToGroupAddition() {
+    click(By.xpath("//input[@value='Add to']"));
+  }
+
+
+  public void goToGroupPage() {
+    click(By.linkText("groups"));
+  }
+
+
+  public void deleteFromGroup(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContactFromGroup();
+    goToGroupPage();
+  }
+
+  private void deleteSelectedContactFromGroup() {
+    click(By.name("remove"));
+  }
+
+  public void addContactToGroup(ContactData contact) {
+    selectContactById(contact.getId());
+    contactToGroupAddition();
+    goToGroupPage();
+  }
   public void create(ContactData contact) {
     initContactCreation();
     fillContactInfo(contact, true);
@@ -107,6 +141,7 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
     returnToHomePage();
   }
+
 
   public Contacts contactCache = null;
 
@@ -148,4 +183,6 @@ public class ContactHelper extends HelperBase {
             .withMobile(mobile).withWork(work).withAddress(address).withEmail(email).withEmail2(email2)
             .withEmail3(email3);
   }
+
+
 }

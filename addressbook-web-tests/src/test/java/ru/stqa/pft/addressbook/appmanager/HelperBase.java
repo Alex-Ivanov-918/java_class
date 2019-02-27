@@ -60,4 +60,11 @@ public class HelperBase {
       return false;
     }
   }
+
+  public void addNewContactPage() {
+    if (isElementPresent(By.name("submit"))) {
+      return;
+    }
+    click(By.linkText("add new"));
+  }
 }
