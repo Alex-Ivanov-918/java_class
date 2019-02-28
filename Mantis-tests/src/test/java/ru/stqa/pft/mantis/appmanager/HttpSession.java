@@ -35,7 +35,7 @@ public class HttpSession {
         post.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = httpclient.execute(post);
         String body = geTextFrom(response);
-        return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+        return body.contains(String.format("<a href=\"/account_page.php\">%s ( %s ) </a>", username, realname));
     }
 
     private String geTextFrom(CloseableHttpResponse response) throws IOException {
@@ -46,11 +46,11 @@ public class HttpSession {
         }
     }
 
-    public boolean isLoggedInAs (String username) throws IOException {
+    public boolean isLoggedInAs (String username, String realname) throws IOException {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/login.php");
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextFrom(response);
-        return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+        return body.contains(String.format("<a href=\"/account_page.php\">%s ( %s ) </a>", username, realname));
     }
 
 }

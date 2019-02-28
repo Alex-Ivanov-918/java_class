@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 
   private final Properties properties;
-  private WebDriver wd;
+  public WebDriver wd;
 
   private String browser;
   private RegistrationHelper registrationHelper;
