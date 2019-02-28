@@ -15,7 +15,6 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
@@ -36,11 +35,11 @@ public class PasswordChangeTest   extends TestBase {
 
         app.wd.findElement(By.name("username")).sendKeys("administrator");
         app.wd.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset/input[2]")).click();
-        app.wd.manage().timeouts().pageLoadTimeout(10,  TimeUnit.SECONDS);
+
 
         app.wd.findElement(By.name("password")).sendKeys("root");
         app.wd.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset/input[3]")).click();
-        app.wd.manage().timeouts().pageLoadTimeout(10,  TimeUnit.SECONDS);
+
 
         app.wd.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a")).click();
         app.wd.findElement(By.xpath("//*[@id=\"main-container\"]/div[2]/div[2]/div/ul/li[2]/a")).click();
