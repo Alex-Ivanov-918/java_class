@@ -10,7 +10,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 import java.io.File;
 
 
-public class AddAndDeleteContactFromGroup extends TestBase{
+public class DeleteContactFromGroup extends TestBase{
 
 
     @BeforeMethod

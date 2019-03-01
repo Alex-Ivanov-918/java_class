@@ -39,4 +39,21 @@ public class Contacts extends ForwardingSet<ContactData> {
         contacts.remove(contact);
         return contacts;
     }
+
+    public ContactData getFirstWithoutGroups() {
+
+        for (ContactData c : this) {
+            if (c.getGroups().isEmpty()) {
+                return c;
+            }
+        }
+
+        /*while (iterator().hasNext()) {
+            ContactData contact = iterator().next();
+            if (contact.getGroups().isEmpty()) {
+                return contact;
+            }
+        }*/
+        return null;
+    }
 }

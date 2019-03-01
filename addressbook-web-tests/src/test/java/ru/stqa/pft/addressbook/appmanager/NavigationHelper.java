@@ -25,4 +25,11 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
+    public void groupNone() {
+     wd.get("http://study.loc/index.php?group=%5Bnone%5D");
+    }
+
+  public void groupPageById(int groupId) {
+    wd.get("http://study.loc/index.php?group=" + groupId);
+  }
 }
