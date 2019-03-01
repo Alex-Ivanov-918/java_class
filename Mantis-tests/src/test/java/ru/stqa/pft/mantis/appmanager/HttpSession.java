@@ -35,6 +35,11 @@ public class HttpSession {
         post.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = httpclient.execute(post);
         String body = geTextFrom(response);
+
+        if (realname.isEmpty()) {
+            return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+        }
+
         return body.contains(String.format("<a href=\"/account_page.php\">%s ( %s ) </a>", username, realname));
     }
 
@@ -50,6 +55,9 @@ public class HttpSession {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/login.php");
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextFrom(response);
+        if (realname.isEmpty()) {
+            return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+        }
         return body.contains(String.format("<a href=\"/account_page.php\">%s ( %s ) </a>", username, realname));
     }
 
