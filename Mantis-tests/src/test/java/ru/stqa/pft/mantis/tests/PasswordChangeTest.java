@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.appmanager.HttpSession;
+import ru.stqa.pft.mantis.appmanager.PasswordChangeHelper;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
 
@@ -19,6 +20,8 @@ import static org.testng.Assert.assertTrue;
 
 public class PasswordChangeTest   extends TestBase {
 
+    private PasswordChangeHelper pch = new PasswordChangeHelper(hb) ;
+
     @BeforeMethod
     public void startMailServer() {
         app.wd.manage().window().setSize(new Dimension(1200, 786));
@@ -29,14 +32,9 @@ public class PasswordChangeTest   extends TestBase {
     public void testRegistration() throws IOException, MessagingException {
         HttpSession session = app.newSession();
 
-        hb.typeByName("username", "administrator");
-        hb.clickByXpath("//*[@id=\"login-form\"]/fieldset/input[2]");
-
-        hb.typeByName("password", "root");
-        hb.clickByXpath("//*[@id=\"login-form\"]/fieldset/input[3]");
-
-        hb.clickByXpath("//*[@id=\"sidebar\"]/ul/li[6]/a");
-        hb.clickByXpath("//*[@id=\"main-container\"]/div[2]/div[2]/div/ul/li[2]/a");
+        pch.enterLogin("administrator");
+        pch.enterPassword("root");
+        pch.goToUsersList();
 
         List<UserData> allUsers = db.getAllUsersExceptAdmin();
 
@@ -44,16 +42,12 @@ public class PasswordChangeTest   extends TestBase {
 
         UserData user = allUsers.get(index);
 
-        hb.clickByXpath("//a[text()='" + user.getUsername() + "']");
-        hb.clickByXpath("//*[@id=\"manage-user-reset-form\"]/fieldset/span/input");
-
+        pch.selectUserFromTheList(user);
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findconfirmationLink(mailMessages, user.getEmail());
-        hb.goTo(confirmationLink);
+        pch.getConfirmationLink(confirmationLink);
 
-        hb.typeByName("password", "12345");
-        hb.typeByName("password_confirm", "12345");
-        hb.clickByXpath("//*[@id=\"account-update-form\"]/fieldset/span/button/span");
+        pch.resetPassword("12345", "12345");
 
         assertTrue(session.login(user.getUsername(), "12345", user.getRealname()));
         assertTrue(session.isLoggedInAs(user.getUsername(),user.getRealname()));
