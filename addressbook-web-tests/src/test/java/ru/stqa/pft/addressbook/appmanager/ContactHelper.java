@@ -108,6 +108,8 @@ public class ContactHelper extends HelperBase {
     goToGroupPage();
   }
 
+
+
   private void deleteSelectedContactFromGroup() {
     click(By.name("remove"));
   }
