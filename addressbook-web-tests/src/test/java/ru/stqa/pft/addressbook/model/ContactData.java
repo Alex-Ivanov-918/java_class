@@ -72,9 +72,20 @@ public class ContactData {
   @Column(name = "email3")
   private String email3;
 
-  @Type(type = "text")
-  @Column(name = "photo")
+  @Transient
   private String photo;
+
+  @Column(name = "middlename")
+  private String middlename;
+
+  @Type(type = "text")
+  @Column(name = "fax")
+  private String fax;
+
+  @Type(type = "text")
+  @Column(name = "im")
+  private String im;
+
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "address_in_groups",
@@ -216,6 +227,9 @@ public class ContactData {
   public String getAllEmails() { return allEmails; }
 
   public File getPhoto() {
+    if (photo == null) {
+      return null;
+    }
     return new File(photo);
   }
 
@@ -267,5 +281,23 @@ public class ContactData {
     groups.add(group);
     return this;
     }
+
+  public String getMiddlename() {
+    return middlename;
+  }
+
+  public ContactData withMiddlename(String middlename) {
+    this.middlename = middlename;
+    return this;
+  }
+
+  public String getFax() {
+    return fax;
+  }
+
+  public ContactData withFax(String fax) {
+    this.fax = fax;
+    return this;
+  }
 }
 

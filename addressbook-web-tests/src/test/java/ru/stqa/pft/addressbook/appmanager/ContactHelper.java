@@ -3,14 +3,20 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
+
+  NavigationHelper nvh = new NavigationHelper(wd);
+  GroupHelper grph = new GroupHelper(wd);
 
   public ContactHelper(WebDriver wd) {
     super(wd);
@@ -114,6 +120,15 @@ public class ContactHelper extends HelperBase {
     click(By.name("remove"));
   }
 
+  public void addToGroup(GroupData group, ContactData cnt) {
+    if(!isThereAContact()){
+      nvh.homePageWithoutFilters();
+      selectContactById(cnt.getId());
+      grph.toGroup(group.getId());
+      click(By.name("add"));
+    }
+  }
+
   public void addContactToGroup(ContactData contact) {
     selectContactById(contact.getId());
     contactToGroupAddition();
@@ -187,4 +202,17 @@ public class ContactHelper extends HelperBase {
   }
 
 
+  public void checkAvailabilityOfContactsAndCreate(ContactData cnt) {
+    if (new DbHelper().contacts().size() == 0){
+      nvh.homePageWithoutFilters();
+      new ContactHelper(wd).create(cnt);
+      nvh.homePageWithoutFilters();
+    }
+  }
+
+  public void deleteContactInGroups(ContactData cnt){
+    WebDriverWait wait = new WebDriverWait(wd,5);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[value='"+cnt.getId()+"']"))).click();
+    click(By.name("remove"));
+  }
 }

@@ -43,4 +43,27 @@ public class DbHelper {
         session.close();
         return new Contacts(result);
     }
+
+    public void saveGroup (GroupData group) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(group);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void saveContact (ContactData contact) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(contact);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void refreshSession(Object obj) {
+        Session session = sessionFactory.openSession();
+        session.refresh(obj);
+        session.close();
+    }
+
 }

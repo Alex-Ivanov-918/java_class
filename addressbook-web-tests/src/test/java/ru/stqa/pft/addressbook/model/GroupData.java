@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,6 +29,10 @@ public class GroupData {
   @Column(name = "group_footer")
   @Type(type = "text")
   private String footer;
+
+  @Expose
+  @Column(name = "deprecated")
+  private LocalDateTime deprecated;
 
   @ManyToMany(mappedBy = "groups")
   private Set<ContactData> contacts = new HashSet<ContactData>();
@@ -94,5 +99,14 @@ public class GroupData {
   @Override
   public int hashCode() {
     return Objects.hash(id, name, header, footer);
+  }
+
+  public LocalDateTime getDeprecated() {
+    return deprecated;
+  }
+
+  public GroupData withDeprecated(LocalDateTime deprecated) {
+    this.deprecated = deprecated;
+    return this;
   }
 }

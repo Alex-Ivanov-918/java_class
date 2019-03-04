@@ -32,4 +32,8 @@ public class NavigationHelper extends HelperBase {
   public void groupPageById(int groupId) {
     wd.get("http://study.loc/index.php?group=" + groupId);
   }
+
+  public void homePageWithoutFilters() {
+    click(By.id("logo"));
+  }
 }

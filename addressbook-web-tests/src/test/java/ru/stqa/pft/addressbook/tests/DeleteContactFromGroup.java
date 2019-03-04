@@ -1,42 +1,41 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.io.File;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class DeleteContactFromGroup extends TestBase{
 
 
     @BeforeMethod
-    public void ensurePreconditions () {
-        app.goTo().groupPage();
-        if (app.db().groups().size() == 0) {
-            app.group().create(new GroupData().withName("test1"));
-        }
+    public void ensurePreconditions() {
+        app.group().checkAvailabilityOfGroupsAndCreate(new GroupData().withName("Test1").withHeader("Header1"));
+        app.contact().checkAvailabilityOfContactsAndCreate(new ContactData().withFirstName("Peter").withLastName("Parker"));
     }
 
     @Test
-    public void testContactDeletionFormGroup () {
+    public void testDeleteContactFromGroup(){
+        app.goTo().homePage();
+        ContactData contact = app.db().contacts().iterator().next();
         Groups groups = app.db().groups();
-        GroupData modifiedGroup = groups.iterator().next();
-        app.wd.get("http://study.loc/index.php?group=" + modifiedGroup.getId());
-        if (! app.contact().isThereAContact()) {
-            app.goTo().addNewContactPage();
-            File photo = new  File("src/test/resources/smile.png");
-            app.contact().create(new ContactData().withFirstName("Nick 0").withLastName("Simpson 0").withHome("11110")
-                    .withMobile("22220").withWork("33330").withEmail("0@mail.com").withEmail2("0@mail.com")
-                    .withEmail3("0@mail.com").withAddress("New York 0").withPhoto(photo).inGroup(modifiedGroup));
-            app.wd.get("http://study.loc/index.php?group=" + modifiedGroup.getId());
+        GroupData group = groups.iterator().next();
+        app.group().selectGroup(groups.iterator().next().getName());
+        if (!app.contact().isThereAContact()){
+            app.contact().addToGroup(group,contact);
+            app.contact().goToGroupPage();
+        }else{
+            contact = app.contact().all().iterator().next();
         }
-
-        ContactData deletedContact = app.contact().all().iterator().next();
-        app.contact().deleteFromGroup(deletedContact);
-        Assert.assertFalse(app.contact().isThereTheContact(deletedContact.getId()));
+        app.contact().deleteContactInGroups(contact);
+        groups.removeAll(contact.getGroups());
+        app.db().refreshSession(contact);
+        assertThat(contact.getGroups(), not(hasItem(group)));
     }
 }
