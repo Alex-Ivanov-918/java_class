@@ -24,40 +24,48 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.4.1.Final"
 }
 
+
 task testGroups(type: Test) {
-    useTestNG{
+    useTestNG {
         suites 'src/test/resources/testng-groups.xml'
     }
     if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
     }
 
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
     }
+
     if (project.hasProperty('target')) {
-    systemProperty 'target', "${target}"
+        systemProperty 'target', "${target}"
     }
 
     if (project.hasProperty('verifyUI')) {
-    systemProperty 'verifyUI', "${verifyUI}"
+        systemProperty 'verifyUI', "${verifyUI}"
     }
+}
 
 task testContacts(type: Test) {
-    useTestNG{
+    useTestNG {
         suites 'src/test/resources/testng-contacts.xml'
     }
     if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
     }
 
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
     }
+    
     if (project.hasProperty('target')) {
-    systemProperty 'target', "${target}"
+        systemProperty 'target', "${target}"
     }
 
     if (project.hasProperty('verifyUI')) {
-    systemProperty 'verifyUI', "${verifyUI}"
+        systemProperty 'verifyUI', "${verifyUI}"
     }
-
+}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
