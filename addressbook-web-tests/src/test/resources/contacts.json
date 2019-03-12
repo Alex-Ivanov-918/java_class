@@ -1,0 +1,35 @@
+[
+  {
+    "firstName": "firstname 0",
+    "lastName": "lastname 0",
+    "nickname": "nickname 0",
+    "title": "title 0",
+    "company": "company 0",
+    "address": "Address 775 Westminster Avenue APT D5 0",
+    "mobile": "1212121212 0",
+    "email": "test@mail.com 0",
+    "photo": "src/test/resources/smile.png"
+  },
+  {
+    "firstName": "firstname 1",
+    "lastName": "lastname 1",
+    "nickname": "nickname 1",
+    "title": "title 1",
+    "company": "company 1",
+    "address": "Address 775 Westminster Avenue APT D5 1",
+    "mobile": "1212121212 1",
+    "email": "test@mail.com 1",
+    "photo": "src/test/resources/smile.png"
+  },
+  {
+    "firstName": "firstname 2",
+    "lastName": "lastname 2",
+    "nickname": "nickname 2",
+    "title": "title 2",
+    "company": "company 2",
+    "address": "Address 775 Westminster Avenue APT D5 2",
+    "mobile": "1212121212 2",
+    "email": "test@mail.com 2",
+    "photo": "src/test/resources/smile.png"
+  }
+]
